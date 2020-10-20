@@ -146,12 +146,44 @@
                 })
                 ;
             },
-
-
+            renderPrivateChat(user)
+            {
+                axios.get('chat/private/'+user.id).then(response => {
+                    this.open_chat_messages = response.data.messages.data.reverse();
+                    this.open_chat_next_page = response.data.messages.next_page_url;
+                    this.active_chat = 'private-'+user.id;
+                });
+            },
+            openPrivateChat(user)
+            {
+                axios.get('chat/private/'+user.id).then(response => {
+                    this.open_chat_messages = response.data.messages.data.reverse();
+                    this.open_chat_next_page = response.data.messages.next_page_url;
+                    this.active_chat = 'private-'+user.id;
+                });
+            },
+            listenToPrivateChat()
+            {
+                Echo.private('private.chat.'+this.currentUser.id).listen('PrivateMessageSent', event => {
+                    if (this.active_chat == 'private-'+event.message.sender_id)
+                    {
+                        this.open_chat_messages.push(event.message);
+                    }
+                    else{
+                        this.$notify({
+                            group: 'notifications',
+                            title: "private chat ("+event.message.sender.name+")",
+                            type: "success",
+                            text: event.message.content
+                        });
+                    }
+                })
+            }
 
         },
         mounted() {
             this.openGeneralChat();
+            this.listenToPrivateChat();
 
         }
     }
