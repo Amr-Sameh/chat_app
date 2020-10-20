@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/chat', [App\Http\Controllers\ChatController::class, 'index'])->name('home');
+Route::get('/chat', [App\Http\Controllers\ChatController::class, 'index'])->name('chat.home');
 
 Route::get('/chat/general', [App\Http\Controllers\ChatController::class, 'general'])->name('chat.general');
 Route::post('/chat/general/send', [App\Http\Controllers\ChatController::class, 'send_general_message'])->name('chat.general.send');
