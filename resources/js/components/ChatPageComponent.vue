@@ -10,7 +10,7 @@
                          tabindex="5000">
                         <div class="chat-users">
                             <h6>Users</h6>
-                            <div class="user" :class="active_chat == null?'bg-secondary' :''"
+                            <div class="user" :class="active_chat == null?'active-chat' :''"
                                  v-on:click="openGeneralChat">
                                 <div class="avatar">
                                     <img
@@ -22,13 +22,13 @@
                                 <div class="mood" style="height: 20px"></div>
                             </div>
 
-                            <div class="user" :class="active_chat == 'private-'+user.id?'bg-secondary' :''"
+                            <div class="user" :class="active_chat == 'private-'+user.id?'active-chat' :''"
                                  v-for="user in users" v-on:click="openPrivateChat(user)">
                                 <div class="avatar">
                                     <img :src="user.avatar" alt="User name">
                                     <div class="status online"></div>
                                 </div>
-                                <div class="name">{{user.name}}</div>
+                                <div class="name">{{user.name}} ({{user.username}})</div>
                                 <div class="mood" style="height: 20px"></div>
                             </div>
 

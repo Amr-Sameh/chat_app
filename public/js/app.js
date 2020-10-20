@@ -43979,7 +43979,7 @@ var render = function() {
                         "div",
                         {
                           staticClass: "user",
-                          class: _vm.active_chat == null ? "bg-secondary" : "",
+                          class: _vm.active_chat == null ? "active-chat" : "",
                           on: { click: _vm.openGeneralChat }
                         },
                         [
@@ -44003,7 +44003,7 @@ var render = function() {
                             staticClass: "user",
                             class:
                               _vm.active_chat == "private-" + user.id
-                                ? "bg-secondary"
+                                ? "active-chat"
                                 : "",
                             on: {
                               click: function($event) {
@@ -44021,7 +44021,12 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "name" }, [
-                              _vm._v(_vm._s(user.name))
+                              _vm._v(
+                                _vm._s(user.name) +
+                                  " (" +
+                                  _vm._s(user.username) +
+                                  ")"
+                              )
                             ]),
                             _vm._v(" "),
                             _c("div", {
