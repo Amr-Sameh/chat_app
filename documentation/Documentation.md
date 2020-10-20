@@ -2,7 +2,7 @@
 
 ### System Requirements
 - PHP : 7.4
-- MySQL : 14.14
+- MySQL : 5.7.31
 - Composer : 1.10.5
 - npm : 6.14.6
 - redis-server : 4.0.9
@@ -13,9 +13,9 @@
 ### Deploy Project
 - create `chat_app_db` database
 - copy `.env.development` or `.env.production` as `.env` depending on your environment
-- you may need to change databae credentials in `.env` file
+- you may need to change database credentials in `.env` file
 - `composer install`
-- `php artisan migrate` or `php artisan project:install` this command will run migrations and seeders
+- `php artisan migrate` or `php artisan project:install` this command will run migrations and seeders (if exist)
 - npm install
 - `npm run dev` or `npm run prod` depending on your environment
 - run laravel worker :
@@ -33,7 +33,7 @@
 - PHP Framework : Laravel 8
 - JS Framework : VueJs 2.5.17
 - Web Socket stack :
-  - laravel-websockets free alternative to Pusher 
+  - laravel-websockets alternative to `socket.io` free alternative to Pusher 
   - laravel-echo 
   - pusher-js
  
