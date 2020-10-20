@@ -19,6 +19,15 @@ class ChatController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('chat.chat_page');
+    }
 
     public function general(Request $request)
     {
