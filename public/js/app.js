@@ -1985,6 +1985,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2035,8 +2037,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             title: "Couldn't deliver the message"
           });
         } else {
-          console.log();
-
           _this3.open_chat_messages.push({
             content: _this3.message,
             human_date: "2 seconds ago",
@@ -43962,6 +43962,7 @@ var render = function() {
                         "div",
                         {
                           staticClass: "user",
+                          class: _vm.active_chat == null ? "bg-secondary" : "",
                           on: { click: _vm.openGeneralChat }
                         },
                         [
@@ -43971,7 +43972,10 @@ var render = function() {
                             _vm._v("General Chat Room")
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "mood" })
+                          _c("div", {
+                            staticClass: "mood",
+                            staticStyle: { height: "20px" }
+                          })
                         ]
                       ),
                       _vm._v(" "),
@@ -43980,6 +43984,10 @@ var render = function() {
                           "div",
                           {
                             staticClass: "user",
+                            class:
+                              _vm.active_chat == "private-" + user.id
+                                ? "bg-secondary"
+                                : "",
                             on: {
                               click: function($event) {
                                 return _vm.openPrivateChat(user)
@@ -43999,7 +44007,10 @@ var render = function() {
                               _vm._v(_vm._s(user.name))
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "mood" })
+                            _c("div", {
+                              staticClass: "mood",
+                              staticStyle: { height: "20px" }
+                            })
                           ]
                         )
                       })
@@ -44092,9 +44103,14 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", { staticClass: "answer-btn answer-btn-2" }),
                         _vm._v(" "),
-                        _c("button", { on: { click: _vm.sendMessage } }, [
-                          _vm._v("send")
-                        ])
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-lg btn-success",
+                            on: { click: _vm.sendMessage }
+                          },
+                          [_vm._v("send")]
+                        )
                       ])
                     ],
                     2
