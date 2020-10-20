@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('App.Models.User.{id}',function ($user,$id)
+{
+    return (int)$user->id === (int)$id;
 });
+
+Broadcast::channel('general.chat',function ($user)
+{
+    return $user;
+});
+
+Broadcast::channel('private.chat.{id}',function ($user,$id)
+{
+
+    return (int)$user->id === (int)$id;
+});
+
