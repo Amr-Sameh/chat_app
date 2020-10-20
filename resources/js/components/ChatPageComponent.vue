@@ -106,7 +106,7 @@
             },
             sendMessage() {
                 var send_url = (this.active_chat == null) ? 'chat/general/send' : 'chat/private/' + this.active_chat.split('-')[1] + '/send';
-                if (this.message!= "" && this.message!=null){
+                if (this.message != "" && this.message != null) {
                     axios.post(send_url, {content: this.message}).then(response => {
                         if (response.status != 201) {
                             this.$notify({
@@ -125,8 +125,8 @@
                         }
                     }).catch(error => {
                         var errors = ""
-                        $.each(error.response.data.errors, function(key,val){
-                            errors += key +" : " + val + "<br>";
+                        $.each(error.response.data.errors, function (key, val) {
+                            errors += key + " : " + val + "<br>";
                         });
                         this.$notify({
                             group: 'notifications',
