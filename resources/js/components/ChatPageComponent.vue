@@ -156,7 +156,10 @@
                     this.users = users;
                 })
                     .joining(user => {
-                        this.users.push(user);
+                        if (!this.users.includes(user)) {
+                            //to prevent duplications
+                            this.users.push(user);
+                        }
                     })
                     .leaving(user => {
                         this.users = this.users.filter(u => u.id != user.id);

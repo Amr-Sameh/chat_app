@@ -2081,7 +2081,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }).here(function (users) {
         _this4.users = users;
       }).joining(function (user) {
-        _this4.users.push(user);
+        if (!_this4.users.includes(user)) {
+          //to prevent duplications
+          _this4.users.push(user);
+        }
       }).leaving(function (user) {
         _this4.users = _this4.users.filter(function (u) {
           return u.id != user.id;
