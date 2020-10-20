@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Events\GeneralMessageSent;
 use App\Events\PrivateMessageSent;
+use App\Http\Requests\SendMessageRequest;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -38,7 +40,7 @@ class ChatController extends Controller
         ]);
     }
 
-    public function send_general_message(Request $request)
+    public function send_general_message(SendMessageRequest $request)
     {
         $message = Message::create([
             "content"     => $request->input('content'),
@@ -50,14 +52,14 @@ class ChatController extends Controller
         return $message;
     }
 
-    public function private_chat($receiver_id,Request $request)
+    public function private_chat(User $receiver_id,Request $request)
     {
         $messages = Message::where(function ($query) use ($receiver_id)
         {
-            $query->where('receiver_id',$receiver_id)->Where('sender_id',auth()->id());
+            $query->where('receiver_id',$receiver_id->id)->Where('sender_id',auth()->id());
         })->orWhere(function ($query) use ($receiver_id)
         {
-            $query->where('sender_id',$receiver_id)->Where('receiver_id',auth()->id());
+            $query->where('sender_id',$receiver_id->id)->Where('receiver_id',auth()->id());
         })
             ->orderBy('created_at','desc')->with('sender',
                 'receiver')->paginate(10);
@@ -66,12 +68,12 @@ class ChatController extends Controller
         ]);
     }
 
-    public function send_private_message($receiver_id,Request $request)
+    public function send_private_message(User $receiver_id,SendMessageRequest $request)
     {
         $message = Message::create([
             "content"     => $request->input('content'),
             "sender_id"   => auth()->id(),
-            "receiver_id" => $receiver_id,
+            "receiver_id" => $receiver_id->id,
         ]);
         $message->load('sender');
         broadcast(new PrivateMessageSent($message));

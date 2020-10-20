@@ -106,23 +106,37 @@
             },
             sendMessage() {
                 var send_url = (this.active_chat == null) ? 'chat/general/send' : 'chat/private/' + this.active_chat.split('-')[1] + '/send';
-                axios.post(send_url, {content: this.message}).then(response => {
-                    if (response.status != 201) {
+                if (this.message!= "" && this.message!=null){
+                    axios.post(send_url, {content: this.message}).then(response => {
+                        if (response.status != 201) {
+                            this.$notify({
+                                group: 'notifications',
+                                type: "error",
+                                title: "Couldn't deliver the message",
+                            });
+                        } else {
+                            this.open_chat_messages.push({
+                                content: this.message,
+                                human_date: "2 seconds ago",
+                                sender: this.currentUser
+                            });
+                            this.message = null;
+
+                        }
+                    }).catch(error => {
+                        var errors = ""
+                        $.each(error.response.data.errors, function(key,val){
+                            errors += key +" : " + val + "<br>";
+                        });
                         this.$notify({
                             group: 'notifications',
                             type: "error",
-                            title: "Couldn't deliver the message",
+                            title: error.response.data.message,
+                            text: errors
                         });
-                    } else {
-                        this.open_chat_messages.push({
-                            content: this.message,
-                            human_date: "2 seconds ago",
-                            sender: this.currentUser
-                        });
-                        this.message = null;
+                    });
 
-                    }
-                });
+                }
 
 
             },

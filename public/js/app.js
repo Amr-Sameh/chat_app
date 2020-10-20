@@ -2029,25 +2029,40 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this3 = this;
 
       var send_url = this.active_chat == null ? 'chat/general/send' : 'chat/private/' + this.active_chat.split('-')[1] + '/send';
-      axios.post(send_url, {
-        content: this.message
-      }).then(function (response) {
-        if (response.status != 201) {
+
+      if (this.message != "" && this.message != null) {
+        axios.post(send_url, {
+          content: this.message
+        }).then(function (response) {
+          if (response.status != 201) {
+            _this3.$notify({
+              group: 'notifications',
+              type: "error",
+              title: "Couldn't deliver the message"
+            });
+          } else {
+            _this3.open_chat_messages.push({
+              content: _this3.message,
+              human_date: "2 seconds ago",
+              sender: _this3.currentUser
+            });
+
+            _this3.message = null;
+          }
+        })["catch"](function (error) {
+          var errors = "";
+          $.each(error.response.data.errors, function (key, val) {
+            errors += key + " : " + val + "<br>";
+          });
+
           _this3.$notify({
             group: 'notifications',
             type: "error",
-            title: "Couldn't deliver the message"
+            title: error.response.data.message,
+            text: errors
           });
-        } else {
-          _this3.open_chat_messages.push({
-            content: _this3.message,
-            human_date: "2 seconds ago",
-            sender: _this3.currentUser
-          });
-
-          _this3.message = null;
-        }
-      });
+        });
+      }
     },
     openGeneralChat: function openGeneralChat() {
       var _this4 = this;
