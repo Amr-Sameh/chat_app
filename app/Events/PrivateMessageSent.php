@@ -11,9 +11,10 @@ use Illuminate\Queue\SerializesModels;
 
 class PrivateMessageSent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable,InteractsWithSockets,SerializesModels;
 
     public $message;
+
     /**
      * Create a new event instance.
      *
@@ -33,7 +34,6 @@ class PrivateMessageSent implements ShouldBroadcast
     {
         return new PrivateChannel("private.chat.{$this->message->receiver_id}");
     }
-
 
 
 }

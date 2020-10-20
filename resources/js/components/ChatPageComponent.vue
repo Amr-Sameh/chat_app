@@ -10,7 +10,8 @@
                          tabindex="5000">
                         <div class="chat-users">
                             <h6>Users</h6>
-                            <div class="user" :class="active_chat == null?'bg-secondary' :''" v-on:click="openGeneralChat">
+                            <div class="user" :class="active_chat == null?'bg-secondary' :''"
+                                 v-on:click="openGeneralChat">
                                 <div class="avatar">
                                     <img
                                         src="https://img.favpng.com/18/5/20/blue-human-behavior-silhouette-area-communication-png-favpng-wLT3QYknSwc68uu9GAUHGS5FY_t.jpg"
@@ -21,7 +22,8 @@
                                 <div class="mood" style="height: 20px"></div>
                             </div>
 
-                            <div class="user" :class="active_chat == 'private-'+user.id?'bg-secondary' :''" v-for="user in users" v-on:click="openPrivateChat(user)">
+                            <div class="user" :class="active_chat == 'private-'+user.id?'bg-secondary' :''"
+                                 v-for="user in users" v-on:click="openPrivateChat(user)">
                                 <div class="avatar">
                                     <img :src="user.avatar" alt="User name">
                                     <div class="status online"></div>

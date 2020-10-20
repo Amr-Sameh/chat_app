@@ -11,9 +11,10 @@ use Illuminate\Queue\SerializesModels;
 
 class GeneralMessageSent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable,InteractsWithSockets,SerializesModels;
 
     public $message;
+
     /**
      * Create a new event instance.
      *
@@ -33,7 +34,6 @@ class GeneralMessageSent implements ShouldBroadcast
     {
         return new PresenceChannel('general.chat');
     }
-
 
 
 }

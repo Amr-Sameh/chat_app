@@ -31,6 +31,6 @@ class Message extends Model
 
     public function getHumanDateAttribute()
     {
-        return  $this->created_at->diffForHumans() ;
+        return $this->created_at->diffForHumans();
     }
 }
